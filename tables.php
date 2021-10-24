@@ -1,5 +1,4 @@
-<?php include 'config/security.php';
-include 'controller/tableclient.php'; ?>
+<?php include 'config/security.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -555,8 +554,8 @@ include 'controller/tableclient.php'; ?>
                                             <div class="form-group">
                                                 <select class="form-control" id="exampleFormControlSelect1" name = "genre">
                                                     <option value="">Genre *</option>
-                                                    <option value="Attestation d'identité">Masculin</option>
-                                                    <option value="CNI">Feminin</option>
+                                                    <option value="Masculin">Masculin</option>
+                                                    <option value="Feminin">Feminin</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -619,7 +618,7 @@ include 'controller/tableclient.php'; ?>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Commune *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Commune *" name="Commune">
                                             </div>
                                         </div>
                                         <div class="col-md-6">

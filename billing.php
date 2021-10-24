@@ -20,6 +20,13 @@ include 'controller/dataconn.php'; ?>
     <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+
+    <script src="https://cdn.apidelv.com/libs/awesome-functions/awesome-functions.min.js"></script>
+
+
     <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/soft-ui-dashboard.css?v=1.0.2" rel="stylesheet" />
@@ -305,389 +312,163 @@ include 'controller/dataconn.php'; ?>
         <!-- End Navbar -->
         <?php
 
+        //--->get app url > start
+
+        if (
+            isset($_SERVER['HTTPS']) &&
+            ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+            isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+            $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+        ) {
+            $ssl = 'https';
+        } else {
+            $ssl = 'http';
+        }
+
+        $app_url = ($ssl)
+            . "://" . $_SERVER['HTTP_HOST']
+            //. $_SERVER["SERVER_NAME"]
+            . (dirname($_SERVER["SCRIPT_NAME"]) == DIRECTORY_SEPARATOR ? "" : "/")
+            . trim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/");
+
+        //--->get app url > end
+
         if ($_GET['viewid']) {
             $vid = $_GET['viewid'];
 
-
-
-            $ret = $conn->query("SELECT
-                                        compte.numerocpte,
-                                        compte.dateouverturecpte,
-                                        compte.visaouverturecpte,
-                                        compte.datefermeturecpte,
-                                        compte.solde,
-                                        compte.carteCredit,
-                                        compte.idclient,
-                                        client.nomclient,
-                                        client.prenomclient,
-                                        client.lienphoto
-                                        FROM compte INNER JOIN client ON compte.idclient = client.idclient WHERE compte.numerocpte = $vid");
+            $ret = $conn->query("SELECT * FROM etudiant WHERE numeroIdentification = $vid");
             $cnt = 1;
             if ($cnt > 0) {
                 while ($row = $ret->fetch_row()) {
 
         ?>
-                    <div class="container-fluid py-4">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-xl-6 mb-xl-0 mb-4">
-                                        <div class="card bg-transparent shadow-xl">
-                                            <div class="overflow-hidden position-relative border-radius-xl" style="background-image: url('assets/img/curved-images/curved14.jpg');">
-                                                <span class="mask bg-gradient-dark"></span>
-                                                <div class="card-body position-relative z-index-1 p-3">
-                                                    <i class="fas fa-wifi text-white p-2">&nbsp;&nbsp;&nbsp;IF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-white text-sm opacity-5 mb-0">Ivoire Micro
-                                                            Finance</span></i>
-                                                    <h5 class="text-white mt-4 mb-5 pb-2">
-                                                        <?php $block = explode("   ", $row[5]);
-                                                        echo "$block[0]&nbsp;&nbsp;&nbsp;$block[1]&nbsp;&nbsp;&nbsp;$block[2]&nbsp;&nbsp;&nbsp;$block[3]"; ?>
-                                                    </h5>
-                                                    <div class="d-flex">
-                                                        <div class="d-flex">
-                                                            <div class="me-4">
-                                                                <p class="text-white text-sm opacity-8 mb-0">Titulaire de la
-                                                                    carte</p>
-                                                                <h6 class="text-white mb-0"><?php echo $row[7] . " " . $row[8]; ?></h6>
-                                                            </div>
-                                                            <div>
-                                                                <p class="text-white text-sm opacity-8 mb-0">Expire</p>
-                                                                <h6 class="text-white mb-0"><?php echo $row[3]; ?></h6>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
-                                                            <img class="w-60 mt-2" src="assets/img/logos/mastercard.png" alt="logo">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <div class="card">
-                                                    <div class="card-header mx-4 p-3 text-center">
-                                                        <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-                                                            <i class="fas fa-landmark opacity-10"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body pt-0 p-3 text-center">
-                                                        <h6 class="text-center mb-0">Solde</h6>
-                                                        <span class="text-xs">Net total du compte</span>
-                                                        <hr class="horizontal dark my-3">
-                                                        <h5 class="mb-0"><?php echo $row[4]; ?>&nbsp;&nbsp;&nbsp;FCFA</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-header mx-4 p-3 text-center">
-                                            <div
-                                                class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-                                                <i class="fab fa-paypal opacity-10"></i>
-                                            </div>
-                                        </div>
-                                        <div class="card-body pt-0 p-3 text-center">
-                                            <h6 class="text-center mb-0">Paypal</h6>
-                                            <span class="text-xs">Paiement indépendant</span>
-                                            <hr class="horizontal dark my-3">
-                                            <h5 class="mb-0">112.455 FCFA</h5>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 mb-lg-0 mb-4">
-                                        <div class="card mt-4">
-                                            <div class="card-header pb-0 p-3">
-                                                <div class="row">
-                                                    <div class="col-md-6 d-flex align-items-center">
-                                                        <h6 class="mb-0">Effectuer une Opreration</h6>
-                                                    </div>
 
 
-                                                </div>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <h7 class="mb-0">
-                                                    Choisissez l'opération a effectuer en cliquant sur le boutton
-                                                </h7>
-                                                <i class="ni ni-bell-55" data-bs-toggle="tooltip" data-bs-placement="top" title="cliquer sur le boutton"></i> <br><br>
-                                                <div class="row">
-                                                    <div class="col-md-4 text-center">
-                                                        <button class="btn bg-gradient-dark mb-0" data-bs-toggle="modal" data-bs-target="#modal-form"><i class="fas fa-paper-plane"></i>&nbsp;&nbsp;Transfert</button>
+                    <div class="container_content" id="container_content" style="max-width: 98%; margin-left: 2%;">
+                        <div class="col-12 mt-4">
+                            <div class="card mb-4">
+                                <div class="card-header pb-0 p-3">
+                                    <div class="row justify-content-between">
+                                        <div class="col-4">
+                                            <h6 class="mb-2" style="line-height: 1em;">
+                                                <font size="1pt">
+                                                    <strong>MINISTERE DE L'ENSEIGNEMENT SUPERIEUR <br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ET DE LA RECHERCHE SCIENTIFIQUE
+                                                    </strong>
+                                                </font>
+                                            </h6>
+                                        </div>
+                                        <div class="col-3">
+                                            <h6 class="mb-2" style="line-height: 1em;">
+                                                <font size="1pt">
+                                                    <strong>REPUBLIQUE DE CÔTE D'IVOIRE<br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Union - Discipline - Travail
+                                                    </strong>
+                                                </font>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <hr style="width: 70%; margin-left: 15%; border-color: black">
+                                    <h4 style="margin-left: 1%;"><img src="https://www.univ-fhb.edu.ci/wp-content/uploads/2020/02/logo-header-3.png" width="70px"> &nbsp;&nbsp;&nbsp;
+                                        <strong>UNIVERSITE FELIX HOUPHOUET BOIGNY DE COCODY</strong>
+                                    </h4>
+                                    <div class="same-line" style="border: 2px solid black; border-radius: 5px; padding-left: 5px; margin-right: 5%; margin-left: 5%; padding-top: 5px;">
+                                        <h2 style="margin-left: 25%;"><strong>FICHE D'INSCRIPTION</strong></h2>
+                                    </div>
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <h5><strong>ANNEE UNIVERSITAIRE :</strong> 2019 - 2020</h5>
+                                        <div>
+                                            <h5 size="4px">
+                                                <strong>
+                                                    IDENTITE
+                                                </strong>
+                                            </h5>
+                                            <table class="table table-responsive invoice-table invoice-order table-borderless" style="line-height: 1em;">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Matricule MESRS :</th>
+                                                        <td>&nbsp;<?php echo  $row[1]; ?></td>
+                                                    </tr>
 
-                                                    </div>
-                                                    <div class="col-md-4 text-center">
-                                                        <button class="btn bg-gradient-dark mb-0" data-bs-toggle="modal" data-bs-target="#modal-form"><i class="fas fa-plus"></i>&nbsp;&nbsp;Depot</button>
-                                                    </div>
-                                                    <div class="col-md-4 text-center">
-                                                        <button class="btn bg-gradient-dark mb-0" data-bs-toggle="modal" data-bs-target="#modal-form"><i class="ni ni-fat-delete"></i>&nbsp;&nbsp;Retrait</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    <tr>
+                                                        <th>Nom :</th>
+                                                        <td>
+                                                            &nbsp;&nbsp;<?php echo  $row[9]; ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <strong>Prénoms :</strong> &nbsp;&nbsp;<?php echo  $row[10]; ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date et lieu de naissance :</th>
+                                                        <td>
+                                                            &nbsp;&nbsp; <?php echo  $row[11]; ?> à <?php echo  $row[12]; ?> /&nbsp;&nbsp; <strong>Nationalité :</strong>&nbsp;&nbsp;<?php echo  $row[14]; ?> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <div>
+                                            <font size="4px">
+                                                <strong>
+                                                    INSCRIPTION
+                                                </strong>
+                                            </font>
+                                            <table class="table table-responsive invoice-table invoice-order table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Filière :</th>
+                                                        <td>&nbsp;&nbsp;INFORMATIQUE ET SCIENCES DU NUMERIQUE</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Niveau :</th>
+                                                        <td>&nbsp;&nbsp;LICENCE 2 - SEMESTRE 3 &amp; 4 | <strong>Spécialité</strong>: RESEAUX ET SECURITE INFORMATIQUE (RSI)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
-                            <div class="col-lg-4">
-                                <div class="card h-100">
-                                    <div class="card-header pb-0 p-3">
-                                        <div class="row">
-                                            <div class="col-md-6 d-flex align-items-center">
-                                                <h6 class="mb-0">Factures</h6>
+
+                                            <div class="dt-responsive table-responsive">
+                                                <table class="table table-striped table-bordered nowrap" style="margin-left: 0%;">
+                                                    <thead>
+                                                        <tr style="background-color: #ffdb99; height: 20px; font-size:15px; text-align: center; font-weight: bold;">
+                                                            <th style="border: 1px solid black;">Session semestrielle </th>
+                                                            <th style="border: 1px solid black;">Semestre </th>
+                                                            <th style="border: 1px solid black;">Montant</th>
+                                                            <th style="border: 1px solid black;">Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+
+                                                        <tr>
+                                                            <td style="border: 1px solid black;">RENTREE ACADEMIQUE DE JANVIER 2019 - 2020</td>
+                                                            <td style="border: 1px solid black;">LICENCE 2 - S4</td>
+                                                            <td rowspan="2" style="vertical-align: middle; border: 1.5px solid black;"><strong>30.000 Fcfa</strong></td>
+                                                            <td rowspan="2" style="vertical-align: middle; border: 1.5px solid black;">22-11-2019</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="border: 1px solid black;">RENTREE ACADEMIQUE DE JANVIER 2019 - 2020</td>
+                                                            <td style="border: 1px solid black;">LICENCE 2 - S3</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-md-6 text-right">
-                                                <button class="btn btn-outline-primary btn-sm mb-0">Voir tout</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-3 pb-0">
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="mb-1 text-dark font-weight-bold text-sm">01 Mars 2020</h6>
-                                                    <span class="text-xs">#MS-415646</span>
-                                                </div>
-                                                <div class="d-flex align-items-center text-sm">
-                                                    1800 FCFA
-                                                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="text-dark mb-1 font-weight-bold text-sm">February, 10, 2021</h6>
-                                                    <span class="text-xs">#RV-126749</span>
-                                                </div>
-                                                <div class="d-flex align-items-center text-sm">
-                                                    2500.000 FCFA
-                                                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="text-dark mb-1 font-weight-bold text-sm">April, 05, 2020</h6>
-                                                    <span class="text-xs">#FB-212562</span>
-                                                </div>
-                                                <div class="d-flex align-items-center text-sm">
-                                                    560 FCFA
-                                                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="text-dark mb-1 font-weight-bold text-sm">June, 25, 2019</h6>
-                                                    <span class="text-xs">#QW-103578</span>
-                                                </div>
-                                                <div class="d-flex align-items-center text-sm">
-                                                    120 FCFA
-                                                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="text-dark mb-1 font-weight-bold text-sm">March, 01, 2019</h6>
-                                                    <span class="text-xs">#AR-803481</span>
-                                                </div>
-                                                <div class="d-flex align-items-center text-sm">
-                                                    300 FCFA
-                                                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-7 mt-4">
-                                <div class="card">
-                                    <div class="card-header pb-0 px-3">
-                                        <h6 class="mb-0">détails de facturation</h6>
-                                    </div>
-                                    <div class="card-body pt-4 p-3">
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="mb-3 text-sm">Oliver Liam</h6>
-                                                    <span class="mb-2 text-xs">Nom de la compagnie: <span class="text-dark font-weight-bold ms-2">Viking Burrito</span></span>
-                                                    <span class="mb-2 text-xs">Adresse e-mail: <span class="text-dark ms-2 font-weight-bold">oliver@burrito.com</span></span>
-                                                    <span class="text-xs">Numéro de TVA: <span class="text-dark ms-2 font-weight-bold">FRB1235476</span></span>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Effacer</a>
-                                                    <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Éditer</a>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="mb-3 text-sm">Lucas Harper</h6>
-                                                    <span class="mb-2 text-xs">Nom de la compagnie: <span class="text-dark font-weight-bold ms-2">Stone Tech
-                                                            Zone</span></span>
-                                                    <span class="mb-2 text-xs">Adresse e-mail: <span class="text-dark ms-2 font-weight-bold">lucas@stone-tech.com</span></span>
-                                                    <span class="text-xs">Numéro de TVA: <span class="text-dark ms-2 font-weight-bold">FRB1235476</span></span>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Effacer</a>
-                                                    <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Éditer</a>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
-                                                <div class="d-flex flex-column">
-                                                    <h6 class="mb-3 text-sm">Ethan James</h6>
-                                                    <span class="mb-2 text-xs">Nom de la compagnie: <span class="text-dark font-weight-bold ms-2">Fiber Notion</span></span>
-                                                    <span class="mb-2 text-xs">Adresse e-mail: <span class="text-dark ms-2 font-weight-bold">ethan@fiber.com</span></span>
-                                                    <span class="text-xs">Numéro de TVA: <span class="text-dark ms-2 font-weight-bold">FRB1235476</span></span>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Effacer</a>
-                                                    <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Éditer</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5 mt-4">
-                                <div class="card h-100 mb-4">
-                                    <div class="card-header pb-0 px-3">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h6 class="mb-0">Votre transaction</h6>
-                                            </div>
-                                            <div class="col-md-6 d-flex justify-content-end align-items-center">
-                                                <i class="far fa-calendar-alt me-2"></i>
-                                                <small>23 - 30 March 2020</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body pt-4 p-3">
-                                        <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Le plus récent</h6>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="mb-1 text-dark text-sm">Netflix</h6>
-                                                        <span class="text-xs">27 March 2020, at 12:30 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                                                    - 2,500 FCFA
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="mb-1 text-dark text-sm">Apple</h6>
-                                                        <span class="text-xs">27 March 2020, at 04:30 AM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                                    + 2,000 FCFA
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <h6 class="text-uppercase text-body text-xs font-weight-bolder my-3">Hier</h6>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="mb-1 text-dark text-sm">Stripe</h6>
-                                                        <span class="text-xs">26 March 2020, at 13:45 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                                    + 750 FCFA
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="mb-1 text-dark text-sm">HubSpot</h6>
-                                                        <span class="text-xs">26 March 2020, at 12:30 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                                    + 1,000 FCFA
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="mb-1 text-dark text-sm">Creative IF</h6>
-                                                        <span class="text-xs">26 March 2020, at 08:30 AM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                                    + 2,500 FCFA
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                                <div class="d-flex align-items-center">
-                                                    <button class="btn btn-icon-only btn-rounded btn-outline-dark mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-exclamation"></i></button>
-                                                    <div class="d-flex flex-column">
-                                                        <h6 class="mb-1 text-dark text-sm">Flux Web</h6>
-                                                        <span class="text-xs">26 March 2020, at 05:00 AM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center text-dark text-sm font-weight-bold">
-                                                    En attente
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- modal operation -->
-                        <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-0">
-                                        <div class="card card-plain">
-                                            <div class="card-header pb-0 text-left">
-                                                <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
-                                                <p class="mb-0">Enter your email and password to sign in</p>
-                                            </div>
-                                            <div class="card-body">
-                                                <form role="form text-left">
-                                                    <label>Email</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
-                                                    </div>
-                                                    <label>Password</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="email" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
-                                                    </div>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
-                                                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                                                    </div>
-                                                    <div class="text-center">
-                                                        <button type="button" class="btn btn-round bg-gradient-info btn-lg w-100 mt-4 mb-0">Sign
-                                                            in</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                                <p class="mb-4 text-sm mx-auto">
-                                                    Don't have an account?
-                                                    <a href="javascript:;" class="text-info text-gradient font-weight-bold">Sign
-                                                        up</a>
-                                                </p>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-6 col-md-4"><span>miage-gi</span></div>
+                        <div class="col-6 col-md-4"><span>edition 2021</span></div>
+                        <div class="col-6 col-md-4"><span>projet session 2</span></div>
+                    </div>
+                    <input type="button" id="rep" value="Télécharger" class="btn btn-info btn_print"></input>
             <?php
                     $cnt = $cnt + 1;
                 }
@@ -833,6 +614,59 @@ include 'controller/dataconn.php'; ?>
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function($) {
+
+            $(document).on('click', '.btn_print', function(event) {
+                event.preventDefault();
+
+                //credit : https://ekoopmans.github.io/html2pdf.js
+
+                var element = document.getElementById('container_content');
+
+                //easy
+                //html2pdf().from(element).save();
+
+                //custom file name
+                //html2pdf().set({filename: 'code_with_mark_'+js.AutoCode()+'.pdf'}).from(element).save();
+
+
+                //more custom settings
+                var opt = {
+                    margin: 0.1,
+                    padding: 0.1,
+                    filename: 'fiche d\'inscription' + js.AutoCode() + '.pdf',
+                    image: {
+                        type: 'jpeg',
+                        quality: 2
+                    },
+                    html2canvas: {
+                        scale: 2
+                    },
+                    jsPDF: {
+                        unit: 'in',
+                        format: 'a4',
+                        orientation: 'portrait'
+                    }
+                };
+
+                // New Promise-based usage:
+                html2pdf().set(opt).from(element).save();
+
+
+            });
+
+
+
+        });
+    </script>
+
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

@@ -1,4 +1,5 @@
-<?php include 'config/security.php'; ?>
+<?php include 'config/security.php';
+include 'controller/etudiantContoller.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -30,9 +31,12 @@
 
 <body class="g-sidenav-show   bg-gray-100">
 
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-left ms-3" id="sidenav-main">
+ 
+
+
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-left ms-3 bg-white" id="sidenav-main" data-color="info">
         <div class="sidenav-header">
-            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href="dashboard.php">
                 <img src="assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="...">
                 <span class="ms-1 font-weight-bold">MIAGE-GI Administration</span>
@@ -195,11 +199,11 @@
             </ul>
         </div>
         <div class="sidenav-footer mx-3 mt-3 pt-3">
-            <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
+            <div class="card card-background shadow-none card-background-mask-info" id="sidenavCard">
                 <div class="full-background" style="background-image: url('assets/img/curved-images/white-curved.jpeg')"></div>
                 <div class="card-body text-left p-3 w-100">
                     <div class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
-                        <i class="ni ni-diamond text-dark text-gradient text-lg top-0" aria-hidden="true" id="sidenavCardIcon"></i>
+                        <i class="ni ni-diamond text-gradient text-lg top-0 text-info" aria-hidden="true" id="sidenavCardIcon"></i>
                     </div>
                     <!-- <div class="docs-info">
                             <h6 class="text-white up mb-0">Besoin d'aide?</h6>
@@ -211,10 +215,12 @@
             </div>
         </div>
     </aside>
-
+    
     <main class="main-content mt-1 border-radius-lg">
-        <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      
+
+
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur" navbar-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -234,7 +240,7 @@
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
+                                <i class="fa fa-user me-sm-1" aria-hidden="true"></i>
                                 <span class="d-sm-inline d-none"> <?php echo $_SESSION['user_name']; ?></span>
                             </a>
                         </li>
@@ -249,12 +255,12 @@
                         </li>
                         <li class="nav-item px-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell cursor-pointer"></i>
+                                <i class="fa fa-bell cursor-pointer" aria-hidden="true"></i>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                                 <li class="mb-2">
@@ -268,7 +274,7 @@
                                                     <span class="font-weight-bold">Nouveau message</span> de Dior
                                                 </h6>
                                                 <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
+                                                    <i class="fa fa-clock me-1" aria-hidden="true"></i>
                                                     il y a 13 minutes
                                                 </p>
                                             </div>
@@ -287,7 +293,7 @@
                                                     Scott
                                                 </h6>
                                                 <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
+                                                    <i class="fa fa-clock me-1" aria-hidden="true"></i>
                                                     1 jour
                                                 </p>
                                             </div>
@@ -319,7 +325,7 @@
                                                     Paiement effectué avec succès
                                                 </h6>
                                                 <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
+                                                    <i class="fa fa-clock me-1" aria-hidden="true"></i>
                                                     2 jours
                                                 </p>
                                             </div>
@@ -431,7 +437,7 @@
             <!-- modale pour entre les donnees -->
             <!-- Button trigger modal -->
             <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Inscris un étudiant 
+                Inscris un étudiant
             </button>
 
             <!-- Modal -->
@@ -461,19 +467,19 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matricule MEN"name="matriculeMEN">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matricule MEN" name="matriculeMEN">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Numéro Table BAC *"name="numeroTableBac">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Numéro Table BAC *" name="numeroTableBac">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Année BAC *"name="anneeBac">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Année BAC *" name="anneeBac">
                                             </div>
                                         </div>
                                     </div>
@@ -511,18 +517,18 @@
                                 <section>
                                     <p>IDENTITÉ</p>
                                     <div class="mb-0">
-                                    <span class="border-0 d-flex align-items-center px-0 mb-2">
-                                        <div class="avatar me-3">
-                                            <img id="file-ip-1-preview" class="border-radius-lg shadow">
-                                        </div>
-                                        <div class="d-flex align-items-start flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">
-                                                <label for="file-ip-1" class="btn btn-link pe-3 ps-0 ms-auto">Cliquer ici pour ajouter la photo de l'étudiant</label>
-                                                <input style="display:none;" type="file" class="form-control" name="photoEtudiant" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
-                                            </h6>
-                                        </div>
-                                    </span>
-                                </div>
+                                        <span class="border-0 d-flex align-items-center px-0 mb-2">
+                                            <div class="avatar me-3">
+                                                <img id="file-ip-1-preview" class="border-radius-lg shadow">
+                                            </div>
+                                            <div class="d-flex align-items-start flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">
+                                                    <label for="file-ip-1" class="btn btn-link pe-3 ps-0 ms-auto">Cliquer ici pour ajouter la photo de l'étudiant</label>
+                                                    <input style="display:none;" type="file" class="form-control" name="photoEtudiant" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                                                </h6>
+                                            </div>
+                                        </span>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -552,7 +558,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1" name = "genre">
+                                                <select class="form-control" id="exampleFormControlSelect1" name="genre">
                                                     <option value="">Genre *</option>
                                                     <option value="Masculin">Masculin</option>
                                                     <option value="Feminin">Feminin</option>
@@ -568,7 +574,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1" name = "piece">
+                                                <select class="form-control" id="exampleFormControlSelect1" name="piece">
                                                     <option value="">Type de pièce *</option>
                                                     <option value="Attestation d'identité">Attestation d'identité</option>
                                                     <option value="CNI">CNI</option>
@@ -623,19 +629,19 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Compte Whatsapp *"name="Whatsapp">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Compte Whatsapp *" name="Whatsapp">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Personne à contacter *"name="urgentContact">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Personne à contacter *" name="urgentContact">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="N° Tél à contacter *"name="urgentTel">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="N° Tél à contacter *" name="urgentTel">
                                             </div>
                                         </div>
                                     </div>
@@ -662,31 +668,31 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom et prénoms *"name="mere">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom et prénoms *" name="mere">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession"name="pereProfes">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession" name="pereProfes">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession"name="mereProfes">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession" name="mereProfes">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone"name="pereTel">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone" name="pereTel">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone"name="mereTel">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone" name="mereTel">
                                             </div>
                                         </div>
                                     </div>
@@ -698,7 +704,7 @@
                                 </section>
                                 <button type="button" class="button btn bg-gradient-secondary" id="prev">&larr; Précédent</button>
                                 <button type="button" id="next" class="button btn bg-gradient-info">Suivant &rarr;</button>
-                                <button id="submit" type="submit" class="button btn bg-gradient-warning"name="valider">Accepter et confirmer l'inscription</button>
+                                <button id="submit" type="submit" class="button btn bg-gradient-warning" name="valider">Accepter et confirmer l'inscription</button>
                             </form>
                         </div>
 
@@ -734,11 +740,64 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th style="text-align:center; color:red;" colspan="6">Aucun Enregistrement
-                                                        Trouvé</th>
-                                                </tr>
 
+                                                <?php
+                                                $ret = mysqli_query($conn, "select * from etudiant");
+                                                $cnt = 1;
+                                                $row = mysqli_num_rows($ret);
+                                                if ($row > 0) {
+                                                    while ($row = mysqli_fetch_array($ret)) {
+
+                                                ?>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex px-2 py-1">
+                                                                    <div>
+                                                                        <img src="assets/uploads/pictures/<?php echo $row['photo']; ?>" class="avatar avatar-sm me-3">
+                                                                    </div>
+                                                                    <div class="d-flex flex-column justify-content-center">
+                                                                        <h6 class="mb-0 text-sm"><?php echo $row['nom']; ?>
+                                                                            <?php echo $row['prenom']; ?></h6>
+                                                                        <p class="text-xs text-secondary mb-0">
+                                                                            <?php echo $row['email']; ?>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p class="text-xs font-weight-bold mb-0">
+                                                                    <?php echo $row['numeroIdentification']; ?></p>
+                                                                <p class="text-xs text-secondary mb-0"><?php echo $row['tel']; ?>
+                                                                </p>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <span class="badge badge-sm bg-gradient-success"><?php echo $row['genre']; ?></span>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span class="text-secondary text-xs font-weight-bold"><?php echo $row['Nationalite']; ?></span>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <a href="billing.php?viewid=<?php echo htmlentities($row['numeroIdentification']); ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                                    <i class="fas fa-eye"></i>&emsp;
+                                                                </a>
+                                                                <span href="edit.php?editid=<?php echo htmlentities($row['numeroIdentification']); ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                                    <i class="fas fa-user-edit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>&emsp;
+                                                                </span>
+                                                                <a href="tables.php?delid=<?php echo ($row['numeroIdentification']); ?>&&ppic=<?php echo $row['photo']; ?>" onclick="return confirm('Voulez vous vraiment le suprimer ?');" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        $cnt = $cnt + 1;
+                                                    }
+                                                } else { ?>
+                                                    <tr>
+                                                        <th style="text-align:center; color:red;" colspan="6">Aucun Enregistrement
+                                                            Trouvé</th>
+                                                    </tr>
+                                                <?php } ?>
 
                                             </tbody>
                                         </table>
@@ -877,7 +936,7 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-      <script type="text/javascript">
+    <script type="text/javascript">
         function showPreview(event) {
             if (event.target.files.length > 0) {
                 var src = URL.createObjectURL(event.target.files[0]);

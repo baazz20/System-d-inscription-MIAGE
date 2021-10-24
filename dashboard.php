@@ -24,9 +24,9 @@
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-left ms-3" id="sidenav-main">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-left ms-3 bg-white" id="sidenav-main" data-color="info">
         <div class="sidenav-header">
-            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href="dashboard.php">
                 <img src="assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="...">
                 <span class="ms-1 font-weight-bold">MIAGE-GI Administration</span>
@@ -223,11 +223,11 @@
             </ul>
         </div>
         <div class="sidenav-footer mx-3 mt-3 pt-3">
-            <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
+            <div class="card card-background shadow-none card-background-mask-info" id="sidenavCard">
                 <div class="full-background" style="background-image: url('assets/img/curved-images/white-curved.jpeg')"></div>
                 <div class="card-body text-left p-3 w-100">
                     <div class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
-                        <i class="ni ni-diamond text-dark text-gradient text-lg top-0" aria-hidden="true" id="sidenavCardIcon"></i>
+                        <i class="ni ni-diamond text-gradient text-lg top-0 text-info" aria-hidden="true" id="sidenavCardIcon"></i>
                     </div>
                     <!-- <div class="docs-info">
                             <h6 class="text-white up mb-0">Besoin d'aide?</h6>
@@ -241,7 +241,9 @@
     </aside>
     <main class="main-content mt-1 border-radius-lg">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      
+
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur" navbar-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -260,7 +262,7 @@
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                                <i class="fa fa-user me-sm-1"></i>
+                                <i class="fa fa-user me-sm-1" aria-hidden="true"></i>
                                 <span class="d-sm-inline d-none"> <?php echo $_SESSION['user_name']; ?></span>
                             </a>
                         </li>
@@ -275,12 +277,12 @@
                         </li>
                         <li class="nav-item px-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0">
-                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell cursor-pointer"></i>
+                                <i class="fa fa-bell cursor-pointer" aria-hidden="true"></i>
                             </a>
                             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                                 <li class="mb-2">
@@ -294,7 +296,7 @@
                                                     <span class="font-weight-bold">nouveau message</span> MIAGE-GI
                                                 </h6>
                                                 <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
+                                                    <i class="fa fa-clock me-1" aria-hidden="true"></i>
                                                     13 minutes ago
                                                 </p>
                                             </div>

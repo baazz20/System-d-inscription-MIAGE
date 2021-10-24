@@ -451,37 +451,37 @@ include 'controller/tableclient.php'; ?>
                                 <h3 class="text-center font-weight-bolder text-primary text-gradient">INSCRIPTON D'ETUDIANT</h3>
                                 <p class="text-center" class="mb-0">Veuillez reseigner le formulaire et cliquer sur Suivant</p>
                             </div>
-                            <form action="">
+                            <form role="form text-left" action="controller/etudiantContoller.php" method="POST" enctype="multipart/form-data">
                                 <section>
                                     <p>INFORMATION GENERAL</p>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matricule MESRS *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matricule MESRS *" name="matriculeMESRS">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matricule MEN">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Numéro Table BAC *">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Année BAC *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Matricule MEN"name="matriculeMEN">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Numéro Table BAC *"name="numeroTableBac">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Année BAC *"name="anneeBac">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <select class="form-control" id="exampleFormControlSelect1" name="serieBac">
                                                     <option value="D">Série BAC *</option>
                                                     <option value="D">D</option>
                                                     <option value="C">C</option>
@@ -491,19 +491,19 @@ include 'controller/tableclient.php'; ?>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Point BAC *">
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Point BAC *" name="pointBac">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Centre d'examen BAC *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Centre d'examen BAC *" name="centreBac">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lycée d'origine *">
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Montant Payé *" name="montantPayer">
                                             </div>
                                         </div>
                                     </div>
@@ -511,15 +511,28 @@ include 'controller/tableclient.php'; ?>
 
                                 <section>
                                     <p>IDENTITÉ</p>
+                                    <div class="mb-0">
+                                    <span class="border-0 d-flex align-items-center px-0 mb-2">
+                                        <div class="avatar me-3">
+                                            <img id="file-ip-1-preview" class="border-radius-lg shadow">
+                                        </div>
+                                        <div class="d-flex align-items-start flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm">
+                                                <label for="file-ip-1" class="btn btn-link pe-3 ps-0 ms-auto">Cliquer ici pour ajouter la photo de l'étudiant</label>
+                                                <input style="display:none;" type="file" class="form-control" name="photoEtudiant" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                                            </h6>
+                                        </div>
+                                    </span>
+                                </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom *" name="nom">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Prénoms *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Prénoms *" name="prenom">
                                             </div>
                                         </div>
                                     </div>
@@ -527,20 +540,20 @@ include 'controller/tableclient.php'; ?>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="date" class="form-control" id="exampleFormControlInput1">
+                                                    <input type="date" class="form-control" id="exampleFormControlInput1" name="datenaiss">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lieu de naissance *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Lieu de naissance *" name="lieunaiss">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                <select class="form-control" id="exampleFormControlSelect1" name = "genre">
                                                     <option value="">Genre *</option>
                                                     <option value="Attestation d'identité">Masculin</option>
                                                     <option value="CNI">Feminin</option>
@@ -549,14 +562,14 @@ include 'controller/tableclient.php'; ?>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nationalité *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nationalité *" name="Nationalite">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
+                                                <select class="form-control" id="exampleFormControlSelect1" name = "piece">
                                                     <option value="">Type de pièce *</option>
                                                     <option value="Attestation d'identité">Attestation d'identité</option>
                                                     <option value="CNI">CNI</option>
@@ -567,7 +580,7 @@ include 'controller/tableclient.php'; ?>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="N° pièce *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="N° pièce *" name="numpiece">
                                             </div>
                                         </div>
                                     </div>
@@ -593,13 +606,13 @@ include 'controller/tableclient.php'; ?>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="exemple@example.com">
+                                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="exemple@example.com" name="email">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="N° Téléphone *">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="N° Téléphone *" name="tel">
                                             </div>
                                         </div>
                                     </div>
@@ -611,19 +624,19 @@ include 'controller/tableclient.php'; ?>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Compte Whatsapp *">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Compte Whatsapp *"name="Whatsapp">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Personne à contacter *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Personne à contacter *"name="urgentContact">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="N° Tél à contacter *">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="N° Tél à contacter *"name="urgentTel">
                                             </div>
                                         </div>
                                     </div>
@@ -645,36 +658,36 @@ include 'controller/tableclient.php'; ?>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom et prénoms *">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom et prénoms *" name="pere">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom et prénoms *">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nom et prénoms *"name="mere">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession"name="pereProfes">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Profession"name="mereProfes">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone"name="pereTel">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="Téléphone"name="mereTel">
                                             </div>
                                         </div>
                                     </div>
@@ -686,7 +699,7 @@ include 'controller/tableclient.php'; ?>
                                 </section>
                                 <button type="button" class="button btn bg-gradient-secondary" id="prev">&larr; Précédent</button>
                                 <button type="button" id="next" class="button btn bg-gradient-info">Suivant &rarr;</button>
-                                <button id="submit" type="button" class="button btn bg-gradient-warning">Accepter et confirmer l'inscription</button>
+                                <button id="submit" type="submit" class="button btn bg-gradient-warning"name="valider">Accepter et confirmer l'inscription</button>
                             </form>
                         </div>
 
@@ -863,6 +876,16 @@ include 'controller/tableclient.php'; ?>
                 damping: '0.5'
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+      <script type="text/javascript">
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
         }
     </script>
     <!-- Github buttons -->
